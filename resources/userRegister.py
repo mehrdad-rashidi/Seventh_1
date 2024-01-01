@@ -2,7 +2,7 @@ import sqlite3
 
 from flask_restful import Resource, reqparse
 
-from entity.user import User
+from models.user import UserModel
 
 
 class UserRegister(Resource):
@@ -13,7 +13,7 @@ class UserRegister(Resource):
     def post(self):
         data = UserRegister.parser.parse_args()
 
-        if User.find_by_username(data['username']):  # means username is not None
+        if UserModel.find_by_username(data['username']):  # means username is not None
             return {"message": "A user with that username already exists"}, 400
 
         connection = sqlite3.connect('seventh.sqlite')
